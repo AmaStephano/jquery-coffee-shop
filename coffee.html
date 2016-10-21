@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hackbright Coffee Shop</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link href="static/coffee.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <style type="text/css">
+        #img-div {
+            width: 200px;
+            height: 300px;
+            display: inline-block;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="starter-template">
+        <h1>Coffee Shop</h1>
+        <br>
+
+        <div id="img-div"> <img id="coffee_image" src="LOLWUT" alt="make this image work" height="300" width="200"></div>
+
+        <h3 id="message">Click The Image To Order Coffee</h3>
+
+        <table class="table">
+            <tr>
+                <td class="col-md-2">
+                    <button class="btn btn-default" id="espresso">Espresso</button>
+                </td>
+                <td class="col-md-2">
+                    <button class="btn btn-default" id="latte">Latte</button>
+                </td>
+                <td class="col-md-2">
+                    <button class="btn btn-default" id="hot-chocolate">Hot Chocolate</button>
+                </td>
+            </tr>
+            <tr>
+                <td>$3.25</td>
+                <td>$4.15</td>
+                <td>$2.50</td>
+            </tr>
+        </table>
+
+        <h4>Total: <span id="revenue"><!-- Revenue Message will show up here --></span></h4>
+    </div>
+</div>
+
+<script>
+    var prices = {
+        "brew": 2.05,
+        "espresso": 3.25,
+        "latte": 4.15,
+        "hot-chocolate": 2.50
+    };
+
+    var drinksOrdered = [];
+
+
+
+    function revenue() {
+        var revenueTotal = 0;
+        
+        for (var i=0; i<drinksOrdered.length; i++) {
+            revenueTotal += prices[drinksOrdered[i]];
+        }
+        return revenueTotal.toFixed(2);
+    }
+
+    function makeCoffee(drinkType) {
+        drinksOrdered.push(drinkType);
+        console.log(drinksOrdered);
+        var total = revenue()
+
+        $('#revenue').fadeOut()        
+        $('#revenue').html('$' + total).fadeToggle();
+
+
+        $('#coffee_image').fadeOut();
+
+        setTimeout(function(){
+            $('#coffee_image').attr('src', "static/coffee_machine.jpg").fadeIn(1000).fadeOut();
+         
+        }, 1500); 
+        
+
+         setTimeout(function() { $('#coffee_image').attr('src', "static/coffee_mug.jpg").fadeIn(1000).fadeOut();
+         }, 4000);
+
+         setTimeout(function() { $('#coffee_image').attr('src', "static/coffee_beans.jpg").fadeIn(1000); }, 6000);
+    }
+
+
+    $("#coffee_image").attr('src', 'static/coffee_beans.jpg').on('click',
+        function () {
+            return makeCoffee('brew');
+        });
+
+    $('#espresso').on('click', 
+        function(){
+            return makeCoffee('espresso');
+    });
+
+    $('#latte').on('click', 
+        function(){
+            return makeCoffee('latte');
+    });
+
+    $('#hot-chocolate').on('click', 
+        function(){
+            return makeCoffee('hot-chocolate');
+    });
+
+
+   
+</script>
+
+</body>
+</html>
